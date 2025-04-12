@@ -46,13 +46,13 @@ end
 
 ## Binary with keymap (without mass storage)でのビルド環境構築（WSL2 Ubuntu用）
 
-公式サイトの手順を参考に、エラー回避手順も含めて整理した。
+公式サイトの手順を参考に、エラー回避手順も含めて整理した。ここで示す手順は、作成したキーマップファイル（keymap.rb）と修正1でRakefileを置き換えるファイル（mod_Rakefile）を ~/my_prkフォルダに配置しておくことを前提としている。
 
 + [Building a binary · picoruby/prk\_firmware Wiki](https://github.com/picoruby/prk_firmware/wiki/Building-a-binary)
 
-```bash
-# ここで示す手順は、作成したキーマップファイル（keymap.rb）と修正1でRakefileを置き換えるファイル（mod_Rakefile）を ~/my_prkフォルダに配置しておくことを前提としている。
 
+
+```bash
 # my_prk
 #  ├─ keymap.rb  # 自前のキーマップファイル
 #  └─ mod_Rakefile # 修正1でRakefileを置き換えるファイル
@@ -88,7 +88,7 @@ source ~/.bashrc
 
 cd pico-sdk
 # 最後のビルド（rake）時に、pico-sdkを2.1.0にしろと怒られる。
-# Rakefile の PICO_SDK_TAGに2.1.0が指定されていたので、現状の2.1.1に変更してみたが、やはり2.1.0にしろと怒られる。
+# PICO_SDK_TAGに2.1.0が指定されていたので、現状の2.1.1に変更してみたが、やはり2.1.0にしろと怒られる。
 # というわけで、この時点で pico-sdk を2.1.0に戻しておくことにした。
 git pull
 git checkout 2.1.0
@@ -120,7 +120,8 @@ cp ~/my_prk/keymap.rb ~/prk_firmware/keyboards/my_keyboard/keymap.rb
 ### 修正済みのmod_RakefileでRakefileを上書き
 cp ~/my_prk/mod_Rakefile ~/prk_firmware/Rakefile
 
-# 【修正2】picoruby.cの修正（mrc_freeだと引数が2つ必要なのでエラーとなっていた。freeは引数が1つで済むので、こちらに変更）
+# 【修正2】picoruby.cの修正
+# mrc_freeだと引数が2つ必要でエラーとなっていた。freeは引数が1つで済むので、こちらに変更
 ### 588行目を'mrc_free(source)'から'free(source)'に変更
 sed -i '588s/mrc_free(source)/free(source)/' "$HOME/prk_firmware/lib/picoruby/mrbgems/picoruby-bin-picoruby2/tools/picoruby/picoruby.c"
 

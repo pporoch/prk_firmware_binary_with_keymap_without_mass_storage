@@ -1,5 +1,7 @@
 # Binary with keymap (without mass storage) を何とかする
 
+<img src="./img/joker8_2025-04-12.jpg" width="640">
+
 [キーケット 2025](https://keyket.jp/tokyo-2025)で、Joker8というマクロパッドを購入した。購入後、[Joker8 ビルドガイド（組立手順説明書）](https://blog.alglab.net/archives/joker8-build-guide/)を確認し、ファームウェアとしてKermiteとPRK Firmwareがサポートされていることを知った。Kermiteでは自分の求める機能を実装できないと判断し、PRK Firmwareを実装することに決めた。Joker8のビルドガイドで紹介されていたPRK Firmwareの実装方法だと、マクロパッドがUSBマスストレージとして認識され、ここにキーマップファイル（keymap.rb）を書き込むことになる。
 
 今回は、USBマスストレージとして認識されると困る環境での使用を考慮して、[Binary with keymap (without mass storage)](https://github.com/picoruby/prk_firmware/wiki/Building-a-binary#binary-with-keymap-without-mass-storage)を参考にバイナリにキーマップファイルを入れ込んでビルドする方法を試みた。しかし、バージョンが進んでファイル内容に変更があったのか、自分の環境に問題があるのか、ビルドエラーとなった。エラー内容を調べて、なんとかビルドできる環境を整えたので、備忘録として残しておく。
